@@ -1,0 +1,72 @@
+.App {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 2;
+  padding-right: 2;
+  height: 100%
+}
+
+
+#container {
+  display: flex;                  /* establish flex container */
+  flex-direction: row;            /* default value; can be omitted */
+  flex-wrap: nowrap;              /* default value; can be omitted */
+  justify-content: space-between; /* switched from default (flex-start, see below) */
+
+}
+#container > div {
+  width: 100px;
+  height: 100px;
+  
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 3em;
+}
+.App-subtitle {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.footer-chat-bar {
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  height:40px;
+  width:98%;
+  border: .5px solid lightgrey;
+  border-radius: 25px;
+  /*background:#999;*/
+}
+
+.message_field {
+  width: 100%
+}
+/*
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+*/
