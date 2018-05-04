@@ -18,13 +18,37 @@ wss.on('connection', function connection(ws) {
       ws.nick = data.substr(data.indexOf(' ')+1); // "tocirah sneab"
 
     }
+    else if (data.startsWith("!online")){
+      var nickList = []
+      wss.clients.forEach(function each(client) {
+
+        if (client.readyState === WebSocket.OPEN) {
+          //client.send((ws.nick || 'anonymous') + ": " + data);
+          nickList.push(client.nick)
+          //console.log(nickList)
+
+        }
+      });
+      var nickListJSON = {
+        nicks: nickList
+      }
+      ws.send(JSON.stringify(nickListJSON))
+
+    }
     else{
       wss.clients.forEach(function each(client) {
 
         if (client !== ws && client.readyState === WebSocket.OPEN) {
-          client.send((ws.nick || 'anonymous') + ": " + data);
+          client.send(JSON.stringify({
+            message: '' + (ws.nick || 'anonymous') + ": " + data
+
+          }));
         }
       });
     }
   });
+  ws.on('close', function close() {
+    console.log('disconnected');
+  });
+
 });

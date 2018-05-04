@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './AeroLogo_white.png';
 import huskyLeft from './huskyleft2.gif'
 import huskyRight from './huskyright2.gif'
 import './App.css';
@@ -104,7 +103,8 @@ class App extends Component {
 
 
   connect(){
-    this.ws = new WebSocket('ws://egs-services-c.aero.org:31432');
+    //this.ws = new WebSocket('ws://egs-services-c.aero.org:31432');
+    this.ws = new WebSocket('ws://localhost:8080');
     this.ws.onopen = (event) => {
       this.ws.send("!nick " + this.state.inputValue)
     }
@@ -125,18 +125,25 @@ class App extends Component {
     }
     this.ws.onmessage = (event) => {
       //console.log(event.data);
-      this.messageListItems.push(
-        <li style={{textAlign: 'left', backgroundColor: 'red', color: 'white', borderRadius: "15px"}}>
-          <p>
-            {event.data}
-          </p>
+      var data = JSON.parse(event.data)
+      if (data.hasOwnProperty('nicks')){
+        console.log(data.nicks)
+      }
+      else{
+        var message = data.message
+        this.messageListItems.push(
+          <li style={{textAlign: 'left', backgroundColor: 'red', color: 'white', borderRadius: "15px"}}>
+            <p>
+              {message}
+            </p>
 
-        </li>
-      )
-      this.setState({
-        numMessages: this.state.numMessages + 1
-      })
-      this.scrollToBottom()
+          </li>
+        )
+        this.setState({
+          numMessages: this.state.numMessages + 1
+        })
+        this.scrollToBottom()
+      }
     };
   }
   submit(){
